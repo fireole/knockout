@@ -206,10 +206,35 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <TypeScriptCompile Include="Scripts\App\main.ts" />
+    <TypeScriptCompile Include="Scripts\App\alerter.ts" />
+    <Content Include="main.html" />
+    <Content Include="Scripts\App\alerter.js">
+      <DependentUpon>alerter.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\App\dataservice.ts" />
+    <Content Include="Scripts\App\alerter.min.js">
+      <DependentUpon>alerter.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\App\bootstrapper.ts" />
+    <Content Include="Scripts\App\bootstrapper.js">
+      <DependentUpon>bootstrapper.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\App\bootstrapper.min.js">
+      <DependentUpon>bootstrapper.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\App\dataservice.js">
+      <DependentUpon>dataservice.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\App\dataservice.min.js">
+      <DependentUpon>dataservice.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\App\main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
@@ -231,9 +256,15 @@
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
     <Content Include="Scripts\typings\knockout\knockout.d.ts" />
+    <Content Include="Scripts\typings\requirejs\require.d.ts" />
+    <Content Include="Scripts\typings\toastr\toastr.d.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -291,4 +322,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  
+    <Target Name="BeforeBuild">
+    <Message Text="Compiling TypeScript files" />
+    <Message Text="Executing tsc$(TypeScriptSourceMap) @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+    <Exec Command="tsc$(TypeScriptSourceMap) --module AMD @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+  </Target>
 </Project>

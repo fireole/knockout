@@ -1,25 +1,22 @@
-// Interface
-interface IPoint {
-    getDist(): number;
-}
+/// <reference path="../typings/requirejs/require.d.ts" />
+/// <reference path="bootstrapper.ts" />
 
-// Module
-module Shapes {
 
-    // Class
-    export class Point implements IPoint {
-        // Constructor
-        constructor (public x: number, public y: number) { }
 
-        // Instance member
-        getDist() { return Math.sqrt(this.x * this.x + this.y * this.y); }
-
-        // Static member
-        static origin = new Point(0, 0);
+require.config({
+    baseUrl: 'Scripts/App',
+    shim: {
+        jquery: {
+            exports: '$'
+        }
+    },
+    paths: {
+        'jquery': '../jquery-2.0.3',
+        'toastr': '../toastr'
     }
+});
 
-}
-
-// Local variables
-var p: IPoint = new Shapes.Point(3, 4);
-var dist = p.getDist();
+require(['bootstrapper', 'jquery', 'toastr'],
+    (bootstrapper, $, toastr) => {
+        bootstrapper.run();
+    });

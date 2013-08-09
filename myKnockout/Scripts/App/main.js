@@ -1,19 +1,16 @@
-var Shapes;
-(function (Shapes) {
-    var Point = (function () {
-        function Point(x, y) {
-            this.x = x;
-            this.y = y;
+require.config({
+    baseUrl: 'Scripts/App',
+    shim: {
+        jquery: {
+            exports: '$'
         }
-        Point.prototype.getDist = function () {
-            return Math.sqrt(this.x * this.x + this.y * this.y);
-        };
+    },
+    paths: {
+        'jquery': '../jquery-2.0.3',
+        'toastr': '../toastr'
+    }
+});
 
-        Point.origin = new Point(0, 0);
-        return Point;
-    })();
-    Shapes.Point = Point;
-})(Shapes || (Shapes = {}));
-
-var p = new Shapes.Point(3, 4);
-var dist = p.getDist();
+require(['bootstrapper', 'jquery', 'toastr'], function (bootstrapper, $, toastr) {
+    bootstrapper.run();
+});
